@@ -1,0 +1,131 @@
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #f5f6ff;
+  --panel: #ffffff;
+  --line: #e4e6f0;
+  --text: #22223b;
+  --muted: #72748a;
+  --purple: #6c4cf1;
+  --purple-dark: #5035cb;
+  --shadow: 0 8px 25px rgba(42, 35, 95, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', 'Noto Sans Telugu', sans-serif;
+  line-height: 1.7;
+}
+
+a {
+  color: var(--purple);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+header {
+  padding: 16px 20px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 20px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+}
+
+main {
+  width: min(1100px, 100%);
+  margin: 28px auto;
+  padding: 0 18px;
+}
+
+h1, h2, h3 {
+  line-height: 1.35;
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 46px);
+}
+
+h2 {
+  font-size: 27px;
+}
+
+p {
+  color: var(--muted);
+}
+
+button {
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--purple);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+}
+
+input, textarea, select {
+  max-width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font: inherit;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+article, .card, .post, .blog-card, .profile-card, form {
+  margin-bottom: 20px;
+  padding: 18px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+footer {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 600px) {
+  header, nav {
+    padding: 12px;
+  }
+
+  main {
+    margin-top: 16px;
+    padding: 0 12px;
+  }
+
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 23px;
+  }
+
+  article, .card, .post, .blog-card, .profile-card, form {
+    padding: 14px;
+  }
+}
