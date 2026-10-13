@@ -1,160 +1,73 @@
-:root {
-  --purple: #7047eb;
-  --purple-dark: #5230c7;
-  --bg: #f7f6fc;
-  --white: #ffffff;
-  --text: #24213a;
-  --muted: #77758b;
-  --border: #e9e6f3;
-  --radius: 18px;
+/* BIZBRIDGE mobile form layout fix */
+form {
+  display: block;
+  max-width: 100%;
 }
 
-* {
+form label {
+  display: block;
+  width: 100%;
+  margin: 14px 0 6px;
+}
+
+form input,
+form textarea,
+form select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 0 14px;
+  padding: 14px;
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, "Noto Sans Telugu", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+form button {
+  max-width: 100%;
 }
 
-header {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 5%;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+.card,
+.hero,
+.feed {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
-.brand {
-  color: var(--purple);
-  font-size: 26px;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-}
-
-nav a {
-  color: var(--text);
-  text-decoration: none;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-nav a:hover {
-  color: var(--purple);
-  background: #f0ebff;
-}
-
-main {
-  width: min(1100px, 94%);
-  margin: 28px auto;
-  min-height: 65vh;
-}
-
-h1, h2, h3 {
-  line-height: 1.3;
-}
-
-input, textarea, select {
+img,
+video {
+  display: block;
   width: 100%;
-  padding: 13px 14px;
-  margin: 7px 0 15px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: white;
-  font: inherit;
-}
-
-button, .button {
-  display: inline-block;
-  background: var(--purple);
-  color: white;
-  border: 0;
-  border-radius: 12px;
-  padding: 11px 18px;
-  font: inherit;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-button:hover, .button:hover {
-  background: var(--purple-dark);
-}
-
-img, video {
   max-width: 100%;
   height: auto;
-  display: block;
   border-radius: 14px;
 }
 
-article, .card, form {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin: 16px 0;
-  box-shadow: 0 5px 20px rgba(40, 25, 90, 0.04);
-}
+@media (max-width: 600px) {
+  main {
+    width: 100%;
+    margin: 12px auto;
+    padding: 0 14px;
+  }
 
-footer {
-  text-align: center;
-  padding: 25px 12px;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-}
-
-@media (min-width: 700px) {
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 14px;
   }
 
   nav {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 480px) {
-  header {
-    padding: 12px 4%;
-  }
-
-  .brand {
-    font-size: 23px;
-  }
-
-  nav {
-    gap: 4px;
+    gap: 6px;
   }
 
   nav a {
-    padding: 7px 8px;
+    padding: 8px;
     font-size: 14px;
   }
 
-  main {
-    width: 92%;
-    margin: 18px auto;
+  h1 {
+    font-size: 32px;
   }
 
-  article, .card, form {
-    padding: 14px;
-    border-radius: 14px;
+  .card {
+    padding: 16px;
+    margin-bottom: 16px;
   }
 }
