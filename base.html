@@ -12,6 +12,11 @@
         <a href="{{ url_for('home') }}" class="brand">BIZBRIDGE</a>
     </header>
 
+<form action="{{ url_for('home') }}" method="get" class="site-search">
+  <input type="search" name="q" placeholder="BIZBRIDGEలో వెతకండి..." aria-label="Search">
+  <button type="submit">🔍</button>
+</form>
+    
     <nav>
         <a href="{{ url_for('home') }}">హోమ్</a>
 
