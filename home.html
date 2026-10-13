@@ -1,30 +1,46 @@
-
 {% extends "base.html" %}
 {% block content %}
 
 <section class="hero">
-  <small>✨ THE CREATOR COMMUNITY</small>
-  <h1>నీ ప్రపంచాన్ని<br>పంచుకో.</h1>
-  <p>ఫోటోలు, వీడియోలు, కథలు — అన్నీ ఒకే చోట.</p>
-
+  <small>THE CREATOR COMMUNITY</small>
+  <h1>మీ ప్రపంచాన్ని<br>పంచుకోండి.</h1>
+  <p>ఫొటోలు, వీడియోలు, కథలు — అన్నీ ఒకే చోట.</p>
   {% if me %}
-    <a class="button" href="{{ url_for('upload') }}">＋ పోస్ట్ చేయి</a>
+    <a class="button" href="{{ url_for('upload') }}">＋ పోస్ట్ చేయండి</a>
   {% else %}
     <a class="button" href="{{ url_for('register') }}">ఇప్పుడే ప్రారంభించు</a>
   {% endif %}
 </section>
 
+<section class="stories">
+  <h2>✨ స్టోరీస్</h2>
+  <div class="story-row">
+    <a class="story" href="{{ url_for('upload') }}">
+      <span class="story-circle">＋</span>
+      <span>మీ స్టోరీ</span>
+    </a>
+    <div class="story">
+      <span class="story-circle">🎬</span>
+      <span>వీడియోలు</span>
+    </div>
+    <div class="story">
+      <span class="story-circle">📸</span>
+      <span>ఫొటోలు</span>
+    </div>
+  </div>
+</section>
+
 <section class="feed">
-  <h2>🔥 తాజా పోస్టులు</h2>
+  <h2>🎬 మీ ఫీడ్</h2>
 
   {% if posts %}
     {% for p in posts %}
       <article class="card">
-        <div class="post-header">
+        <p>
           <a href="{{ url_for('profile', username=p['username']) }}">
-            👤 @{{ p['username'] }}
+            👤 {{ p['username'] }}
           </a>
-        </div>
+        </p>
 
         {% if p['kind'] == 'video' %}
           <video controls playsinline preload="metadata">
@@ -55,49 +71,14 @@
   {% else %}
     <article class="card empty-state">
       <h3>🌟 మొదటి పోస్ట్ మీదే!</h3>
-      <p>మీ ఫోటో లేదా వీడియోను పంచుకుని BIZBRIDGEను ప్రారంభించండి.</p>
+      <p>మీ ఫొటో లేదా వీడియోను పంచుకొని BIZBRIDGEను ప్రారంభించండి.</p>
       {% if me %}
-        <a class="button" href="{{ url_for('upload') }}">మొదటి పోస్ట్ చేయి</a>
+        <a class="button" href="{{ url_for('upload') }}">ఫొటో లేదా వీడియో పోస్ట్ చేయండి</a>
       {% else %}
         <a class="button" href="{{ url_for('register') }}">ఖాతా సృష్టించండి</a>
       {% endif %}
     </article>
   {% endif %}
-</section>
-
-<section class="feed">
-  <h2>📝 తాజా బ్లాగులు</h2>
-
-  {% for b in blogs %}
-    <article class="card">
-      <h3>
-        <a href="{{ url_for('blog_detail', bid=b['id']) }}">
-          {{ b['title'] }}
-        </a>
-      </h3>
-      <p>రచయిత: @{{ b['username'] }}</p>
-      <a href="{{ url_for('blog_detail', bid=b['id']) }}">ఇంకా చదవండి →</a>
-    </article>
-  {% else %}
-    <p>ఇంకా బ్లాగులు లేవు.</p>
-  {% endfor %}
-
-  <a class="button" href="{{ url_for('blogs') }}">అన్ని బ్లాగులు చూడండి</a>
-</section>
-
-<section class="feed">
-  <h2>⭐ క్రియేటర్లు</h2>
-  <div class="creator-list">
-    {% for c in creators %}
-      <a class="creator-card" href="{{ url_for('profile', username=c['username']) }}">
-        <span>👤</span>
-        <strong>@{{ c['username'] }}</strong>
-        <small>{{ c['followers'] }} followers</small>
-      </a>
-    {% else %}
-      <p>క్రియేటర్లు త్వరలో కనిపిస్తారు.</p>
-    {% endfor %}
-  </div>
 </section>
 
 {% endblock %}
