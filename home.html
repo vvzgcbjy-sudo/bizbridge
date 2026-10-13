@@ -1,28 +1,30 @@
+
 {% extends "base.html" %}
 {% block content %}
 
 <section class="hero">
-  <small>THE CREATOR COMMUNITY</small>
+  <small>✨ THE CREATOR COMMUNITY</small>
   <h1>నీ ప్రపంచాన్ని<br>పంచుకో.</h1>
   <p>ఫోటోలు, వీడియోలు, కథలు — అన్నీ ఒకే చోట.</p>
+
   {% if me %}
     <a class="button" href="{{ url_for('upload') }}">＋ పోస్ట్ చేయి</a>
   {% else %}
-    <a class="button" href="{{ url_for('register') }}">ఉచితంగా చేరండి</a>
+    <a class="button" href="{{ url_for('register') }}">ఇప్పుడే ప్రారంభించు</a>
   {% endif %}
 </section>
 
 <section class="feed">
-  <h2>తాజా పోస్టులు</h2>
+  <h2>🔥 తాజా పోస్టులు</h2>
 
   {% if posts %}
     {% for p in posts %}
       <article class="card">
-        <p>
+        <div class="post-header">
           <a href="{{ url_for('profile', username=p['username']) }}">
-            @{{ p['username'] }}
+            👤 @{{ p['username'] }}
           </a>
-        </p>
+        </div>
 
         {% if p['kind'] == 'video' %}
           <video controls playsinline preload="metadata">
@@ -51,20 +53,21 @@
       </article>
     {% endfor %}
   {% else %}
-    <div class="card empty-state">
-      <h3>మీ ఫీడ్ ఖాళీగా ఉంది!</h3>
-      <p>మొదటి ఫోటో లేదా వీడియోను పంచుకుని BIZBRIDGE‌ను ప్రారంభించండి.</p>
+    <article class="card empty-state">
+      <h3>🌟 మొదటి పోస్ట్ మీదే!</h3>
+      <p>మీ ఫోటో లేదా వీడియోను పంచుకుని BIZBRIDGEను ప్రారంభించండి.</p>
       {% if me %}
         <a class="button" href="{{ url_for('upload') }}">మొదటి పోస్ట్ చేయి</a>
       {% else %}
         <a class="button" href="{{ url_for('register') }}">ఖాతా సృష్టించండి</a>
       {% endif %}
-    </div>
+    </article>
   {% endif %}
 </section>
 
 <section class="feed">
-  <h2>కొత్త కథనాలు</h2>
+  <h2>📝 తాజా బ్లాగులు</h2>
+
   {% for b in blogs %}
     <article class="card">
       <h3>
@@ -73,24 +76,26 @@
         </a>
       </h3>
       <p>రచయిత: @{{ b['username'] }}</p>
-      <a href="{{ url_for('blog_detail', bid=b['id']) }}">మరింత చదవండి →</a>
+      <a href="{{ url_for('blog_detail', bid=b['id']) }}">ఇంకా చదవండి →</a>
     </article>
   {% else %}
-    <p>ఇంకా కథనాలు లేవు.</p>
+    <p>ఇంకా బ్లాగులు లేవు.</p>
   {% endfor %}
+
+  <a class="button" href="{{ url_for('blogs') }}">అన్ని బ్లాగులు చూడండి</a>
 </section>
 
 <section class="feed">
-  <h2>క్రియేటర్లు</h2>
+  <h2>⭐ క్రియేటర్లు</h2>
   <div class="creator-list">
     {% for c in creators %}
-      <a class="creator-chip"
-         href="{{ url_for('profile', username=c['username']) }}">
-        👤 {{ c['username'] }}
+      <a class="creator-card" href="{{ url_for('profile', username=c['username']) }}">
+        <span>👤</span>
+        <strong>@{{ c['username'] }}</strong>
         <small>{{ c['followers'] }} followers</small>
       </a>
     {% else %}
-      <p>త్వరలో మరిన్ని క్రియేటర్లు ఇక్కడ కనిపిస్తారు.</p>
+      <p>క్రియేటర్లు త్వరలో కనిపిస్తారు.</p>
     {% endfor %}
   </div>
 </section>
