@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block content %}<article class="formbox wide"><a href="/blogs">← బ్లాగ్స్</a><h1>{{ b.title }}</h1><small>రాసినవారు <a href="/u/{{ b.username }}">@{{ b.username }}</a> · {{ b.created }}</small><div class="article">{{ b.body }}</div></article>{% endblock %}
