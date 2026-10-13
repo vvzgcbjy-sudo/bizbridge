@@ -13,13 +13,13 @@
   </header>
 
   <nav>
-    <a href="{{ url_for('home') }}">హోమ్</a>
+    <a href="{{ url_for('profile', username=session.get('username')) }}">ప్రొఫైల్</a>
     <span> · </span>
     <a href="{{ url_for('upload') }}">పోస్ట్ చేయి</a>
     <span> · </span>
     <a href="{{ url_for('blogs') }}">బ్లాగ్స్</a>
     <span> · </span>
-    <a href="{{ url_for('profile') }}">ప్రొఫైల్</a>
+  <a href="{{ url_for('profile', username=session.get('username')) }}">ప్రొఫైల్</a>
   </nav>
 
   <main>
