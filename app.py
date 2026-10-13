@@ -9,7 +9,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.environ.get("DATABASE_PATH", os.path.join(ROOT, "bizbridge.db"))
 UPLOAD_DIR = os.environ.get("UPLOAD_FOLDER", os.path.join(ROOT, "uploads"))
 os.makedirs(UPLOAD_DIR, exist_ok=True)
-app = Flask(__name__)
+app = Flask(__name__, template_folder=".")
 app.secret_key = os.environ.get("SECRET_KEY", secrets.token_hex(32))
 app.config["MAX_CONTENT_LENGTH"] = int(os.environ.get("MAX_UPLOAD_MB", "100")) * 1024 * 1024
 ALLOWED = {"jpg","jpeg","png","gif","webp","mp4","webm","mov","m4v"}
