@@ -71,3 +71,48 @@ video {
     margin-bottom: 16px;
   }
 }
+/* BIZBRIDGE mobile form fix */
+form {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+form label {
+  display: block;
+  margin: 12px 0 6px;
+}
+
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+button {
+  max-width: 100%;
+  white-space: normal;
+}
+
+@media (max-width: 600px) {
+  main {
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  form,
+  .card {
+    padding: 16px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
