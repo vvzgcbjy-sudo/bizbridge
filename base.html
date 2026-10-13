@@ -1,33 +1,40 @@
+
 <!DOCTYPE html>
 <html lang="te">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#6c4cf1">
-  <title>{% block title %}BIZBRIDGE — The Creator Community{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#6c4cf1">
+    <title>{% block title %}BIZBRIDGE - The Creator Community{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <header>
-    <a href="{{ url_for('home') }}" style="font-size:24px;font-weight:700;">◇ BIZBRIDGE</a>
-  </header>
 
-  <nav>
-    <a href="{{ url_for('profile', username=session.get('username')) }}">ప్రొఫైల్</a>
-    <span> · </span>
-    <a href="{{ url_for('upload') }}">పోస్ట్ చేయి</a>
-    <span> · </span>
-    <a href="{{ url_for('blogs') }}">బ్లాగ్స్</a>
-    <span> · </span>
-  <a href="{{ url_for('profile', username=session.get('username')) }}">ప్రొఫైల్</a>
-  </nav>
+    <header>
+        <a href="{{ url_for('home') }}" class="brand">BIZBRIDGE</a>
+    </header>
 
-  <main>
-    {% block content %}{% endblock %}
-  </main>
+    <nav>
+        <a href="{{ url_for('home') }}">హోమ్</a>
 
-  <footer>
-    BIZBRIDGE · నీ కథ. నీ కమ్యూనిటీ. నీ ప్రపంచం.
-  </footer>
+        {% if session.get('username') %}
+            <a href="{{ url_for('profile', username=session.get('username')) }}">ప్రొఫైల్</a>
+        {% else %}
+            <a href="{{ url_for('auth') }}">లాగిన్ / రిజిస్టర్</a>
+        {% endif %}
+
+        <a href="{{ url_for('upload') }}">పోస్ట్ చేయండి</a>
+        <a href="{{ url_for('blogs') }}">బ్లాగ్స్</a>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        BIZBRIDGE · మీ కథ. మీ కమ్యూనిటీ. మీ ప్రపంచం.
+    </footer>
+
 </body>
 </html>
+
