@@ -1,1 +1,227 @@
-{% extends "base.html" %}{% block content %}<section class="formbox"><small>BIZBRIDGE COMMUNITY</small><h1>{{ 'కొత్త అకౌంట్' if mode=='register' else 'లాగిన్ అవ్వు' }}</h1><form method="post">{% if mode=='register' %}<label>Username<input name="username" required minlength="3" maxlength="30"></label><label>Email<input name="email" type="email" required></label><label>Password (8+ characters)<input name="password" type="password" required minlength="8"></label><button class="btn">అకౌంట్ సృష్టించు</button><p>అకౌంట్ ఉందా? <a href="/login">లాగిన్</a></p>{% else %}<label>Username లేదా Email<input name="identity" required></label><label>Password<input name="password" type="password" required></label><button class="btn">లాగిన్</button><p>కొత్తవారా? <a href="/register">రిజిస్టర్ అవ్వండి</a></p>{% endif %}</form></section>{% endblock %}
+{% extends "base.html" %}
+{% block title %}BIZBRIDGE — Join the Community{% endblock %}
+
+{% block content %}
+<style>
+.auth-page {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 12px;
+}
+.auth-layout {
+  width: 100%;
+  max-width: 920px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.auth-welcome {
+  padding: 24px;
+}
+.auth-logo {
+  font-size: 30px;
+  font-weight: 900;
+  color: #7047eb;
+  letter-spacing: -1px;
+}
+.auth-welcome h1 {
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.2;
+  margin: 18px 0;
+}
+.auth-welcome p {
+  color: #77758b;
+  font-size: 16px;
+}
+.auth-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.auth-tags span {
+  background: #f0ebff;
+  color: #5230c7;
+  border-radius: 30px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.auth-card {
+  min-width: 0;
+  background: #fff;
+  border: 1px solid #e9e6f3;
+  border-radius: 26px;
+  padding: 28px;
+  box-shadow: 0 15px 45px rgba(60,40,120,.09);
+}
+.auth-card h2 {
+  margin: 8px 0;
+  font-size: 28px;
+}
+.auth-subtitle {
+  color: #77758b;
+  margin-bottom: 22px;
+}
+.auth-card label {
+  display: block;
+  margin: 15px 0 7px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.auth-card input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 14px;
+  margin-top: 7px;
+  border: 1px solid #e5e1f0;
+  border-radius: 13px;
+  background: #fbfaff;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+.auth-card input:focus {
+  outline: 2px solid #7047eb;
+  border-color: #7047eb;
+}
+.auth-submit {
+  display: block;
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7047eb, #5230c7);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.auth-switch {
+  text-align: center;
+  margin-top: 20px;
+  color: #77758b;
+}
+.auth-switch a {
+  color: #7047eb;
+  font-weight: 800;
+  text-decoration: none;
+}
+.auth-note {
+  margin-top: 18px;
+  text-align: center;
+  color: #9290a2;
+  font-size: 12px;
+}
+@media (max-width: 650px) {
+  .auth-page {
+    min-height: auto;
+    padding: 14px 0;
+  }
+  .auth-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .auth-welcome {
+    padding: 16px 8px;
+  }
+  .auth-welcome h1 {
+    font-size: 32px;
+    margin: 10px 0;
+  }
+  .auth-welcome p {
+    margin-bottom: 8px;
+  }
+  .auth-card {
+    padding: 22px 18px;
+    border-radius: 22px;
+  }
+}
+</style>
+
+<div class="auth-page">
+  <div class="auth-layout">
+
+    <section class="auth-welcome">
+      <div class="auth-logo">BIZBRIDGE</div>
+      <p>THE CREATOR COMMUNITY</p>
+
+      {% if mode == 'register' %}
+        <h1>మీ ప్రపంచాన్ని పంచుకోండి. ✨</h1>
+        <p>మీ ఫొటోలు, వీడియోలు, రీల్స్ మరియు కథలను ఒకే చోట పంచుకోండి.</p>
+      {% else %}
+        <h1>మీ కమ్యూనిటీకి తిరిగి స్వాగతం! 👋</h1>
+        <p>మీ క్రియేటర్ ప్రపంచంలోకి లాగిన్ అయి కొత్త పోస్టులను అన్వేషించండి.</p>
+      {% endif %}
+
+      <div class="auth-tags">
+        <span>📸 Photos</span>
+        <span>🎬 Reels</span>
+        <span>💬 Community</span>
+      </div>
+    </section>
+
+    <section class="auth-card">
+      <small style="color:#7047eb;font-weight:800;">BIZBRIDGE COMMUNITY</small>
+
+      <h2>{{ 'కొత్త అకౌంట్' if mode == 'register' else 'మళ్లీ కలుద్దాం!' }}</h2>
+      <p class="auth-subtitle">
+        {{ 'మీ ఉచిత అకౌంట్‌ను సృష్టించండి.' if mode == 'register' else 'మీ అకౌంట్‌లోకి సురక్షితంగా లాగిన్ అవ్వండి.' }}
+      </p>
+
+      <form method="post">
+        {% if mode == 'register' %}
+          <label>
+            Username
+            <input name="username" required minlength="3" maxlength="30"
+                   autocomplete="username" placeholder="మీ username">
+          </label>
+
+          <label>
+            Email
+            <input name="email" type="email" required
+                   autocomplete="email" placeholder="మీ ఇమెయిల్">
+          </label>
+
+          <label>
+            Password (8+ characters)
+            <input name="password" type="password" required minlength="8"
+                   autocomplete="new-password" placeholder="కనీసం 8 అక్షరాలు">
+          </label>
+
+          <button class="auth-submit" type="submit">అకౌంట్ సృష్టించండి →</button>
+
+          <p class="auth-switch">
+            ఇప్పటికే అకౌంట్ ఉందా? <a href="/login">లాగిన్ అవ్వండి</a>
+          </p>
+        {% else %}
+          <label>
+            Username లేదా Email
+            <input name="identity" required autocomplete="username"
+                   placeholder="Username లేదా Email">
+          </label>
+
+          <label>
+            Password
+            <input name="password" type="password" required
+                   autocomplete="current-password" placeholder="మీ Password">
+          </label>
+
+          <button class="auth-submit" type="submit">లాగిన్ అవ్వండి →</button>
+
+          <p class="auth-switch">
+            కొత్తవారా? <a href="/register">ఉచితంగా రిజిస్టర్ అవ్వండి</a>
+          </p>
+        {% endif %}
+      </form>
+
+      <div class="auth-note">BIZBRIDGE · మీ ఆలోచనలు, మీ ప్రపంచం.</div>
+    </section>
+
+  </div>
+</div>
+{% endblock %}
