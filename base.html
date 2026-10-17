@@ -1,25 +1,106 @@
+
 <!DOCTYPE html>
 <html lang="te">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#0f172a">
+    <meta name="theme-color" content="#6d4aff">
     <title>{% block title %}BIZBRIDGE - The Creator Community{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .bb-ad-banner {
+            margin: 14px auto;
+            padding: 18px;
+            max-width: 1100px;
+            border: 1px dashed #9b8afb;
+            border-radius: 14px;
+            background: #f5f2ff;
+            color: #3f2a99;
+            text-align: center;
+        }
+        .bb-ad-banner p { margin: 6px 0; }
+        .bb-ad-banner a { color: #5b3bd6; font-weight: 700; }
+        .bb-ad-bot-button {
+            position: fixed;
+            right: 18px;
+            bottom: 20px;
+            z-index: 999;
+            border: 0;
+            border-radius: 28px;
+            padding: 14px 18px;
+            color: white;
+            background: #6d4aff;
+            box-shadow: 0 5px 20px #0002;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .bb-chat-panel {
+            display: none;
+            position: fixed;
+            right: 14px;
+            bottom: 82px;
+            width: min(350px, calc(100vw - 28px));
+            max-height: 70vh;
+            overflow: auto;
+            z-index: 1000;
+            background: white;
+            color: #222;
+            border: 1px solid #ddd;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px #0003;
+        }
+        .bb-chat-head {
+            background: #6d4aff;
+            color: white;
+            padding: 15px;
+            border-radius: 15px 15px 0 0;
+            font-weight: 700;
+        }
+        .bb-chat-body { padding: 15px; font-size: 14px; }
+        .bb-chat-body button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #d8d0ff;
+            border-radius: 9px;
+            background: #f7f5ff;
+            color: #452db1;
+            text-align: left;
+            cursor: pointer;
+        }
+        .bb-chat-answer {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 9px;
+            background: #f1efff;
+            line-height: 1.5;
+        }
+        .bb-chat-close {
+            float: right;
+            border: 0;
+            color: white;
+            background: transparent;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .bb-ad-note { font-size: 12px; color: #666; }
+    </style>
 </head>
 <body>
     <header>
         <a href="{{ url_for('home') }}" class="brand">BIZBRIDGE</a>
     </header>
 
-<form action="{{ url_for('home') }}" method="get" class="site-search">
-  <input type="search" name="q" placeholder="BIZBRIDGEలో వెతకండి..." aria-label="Search">
-  <button type="submit">🔍</button>
-</form>
-    
+    <form action="{{ url_for('home') }}" method="get" class="site-search">
+        <input type="search" name="q"
+               placeholder="BIZBRIDGEలో వెతకండి..."
+               aria-label="Search">
+        <button type="submit">🔍</button>
+    </form>
+
     <nav>
         <a href="{{ url_for('home') }}">హోమ్</a>
-
         {% if me %}
             <a href="{{ url_for('profile', username=me['username']) }}">నా ప్రొఫైల్</a>
             <a href="{{ url_for('upload') }}">పోస్ట్ చేయండి</a>
@@ -31,6 +112,15 @@
             <a href="{{ url_for('register') }}">రిజిస్టర్</a>
         {% endif %}
     </nav>
+
+    <section class="bb-ad-banner" aria-label="Advertisement">
+        <strong>📢 BIZBRIDGE ప్రకటనల స్థలం</strong>
+        <p>మీ వ్యాపారాన్ని ఇక్కడ ప్రమోట్ చేసుకోండి.</p>
+        <a href="#bb-ad-bot" onclick="openAdBot(); return false;">
+            ప్రకటనల ప్యాకేజీలు తెలుసుకోండి
+        </a>
+        <p class="bb-ad-note">ప్రకటనల కోసం సంప్రదించండి — ప్యాకేజీలు ప్రారంభ దశలో ఉన్నాయి.</p>
+    </section>
 
     <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -45,5 +135,58 @@
     <footer>
         BIZBRIDGE — మీ ఆలోచనలు, మీ ప్రపంచం.
     </footer>
+
+    <button class="bb-ad-bot-button" type="button"
+            onclick="toggleAdBot()" aria-expanded="false"
+            aria-controls="bb-ad-bot">
+        🤖 Ad Assistant
+    </button>
+
+    <section class="bb-chat-panel" id="bb-ad-bot" aria-label="Advertisement Assistant">
+        <div class="bb-chat-head">
+            BIZBRIDGE Ad Assistant
+            <button class="bb-chat-close" onclick="toggleAdBot()" aria-label="Close">×</button>
+        </div>
+        <div class="bb-chat-body">
+            <p>నమస్కారం! మీ వ్యాపారానికి ప్రకటన ప్యాకేజీ ఎంచుకోండి.</p>
+            <button onclick="showAdPackage('Starter','₹199','3 రోజులు')">
+                Starter — ₹199 / 3 రోజులు
+            </button>
+            <button onclick="showAdPackage('Growth','₹499','7 రోజులు')">
+                Growth — ₹499 / 7 రోజులు
+            </button>
+            <button onclick="showAdPackage('Video Promo','₹999','7 రోజులు')">
+                Video Promo — ₹999 / 7 రోజులు
+            </button>
+            <div class="bb-chat-answer" id="bb-ad-answer" aria-live="polite">
+                ప్యాకేజీపై నొక్కితే వివరాలు కనిపిస్తాయి.
+            </div>
+            <p class="bb-ad-note">
+                ఇవి ప్రతిపాదిత ధరలు మాత్రమే. చెల్లింపు లేదా బుకింగ్ ఇంకా ప్రారంభం కాలేదు.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function toggleAdBot() {
+            const panel = document.getElementById('bb-ad-bot');
+            const button = document.querySelector('.bb-ad-bot-button');
+            const opening = panel.style.display !== 'block';
+            panel.style.display = opening ? 'block' : 'none';
+            button.setAttribute('aria-expanded', String(opening));
+        }
+
+        function openAdBot() {
+            const panel = document.getElementById('bb-ad-bot');
+            if (panel.style.display !== 'block') toggleAdBot();
+            panel.scrollTop = 0;
+        }
+
+        function showAdPackage(name, price, duration) {
+            document.getElementById('bb-ad-answer').textContent =
+                name + ': ' + price + ' — ' + duration +
+                '. ఇది ప్రతిపాదిత ప్యాకేజీ. బుకింగ్, ఈమెయిల్ ద్వారా డీల్ నిర్ధారణ త్వరలో జోడిస్తాం.';
+        }
+    </script>
 </body>
 </html>
