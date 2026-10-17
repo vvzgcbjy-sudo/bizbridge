@@ -1,6 +1,49 @@
 {% extends "base.html" %}
 {% block content %}
 
+<style>
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 22px;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: start;
+}
+.home-main { min-width: 0; }
+.home-sidebar { position: sticky; top: 16px; }
+.ad-slot {
+  border: 1px dashed #a99af7;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 16px 0;
+  background: #f7f5ff;
+  color: #30215f;
+}
+.ad-slot small {
+  display: block;
+  font-size: 11px;
+  color: #7467a8;
+  margin-bottom: 8px;
+}
+.ad-slot h3 { margin: 6px 0; }
+.ad-slot p { font-size: 14px; }
+.ad-slot a {
+  color: #5b3bd6;
+  font-weight: 700;
+}
+.sponsored-label {
+  font-size: 11px;
+  color: #6d4aff;
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .home-layout { grid-template-columns: 1fr; }
+  .home-sidebar { position: static; }
+  .home-sidebar .ad-slot { margin-top: 10px; }
+}
+</style>
+
 <section class="hero">
   <small>THE CREATOR COMMUNITY</small>
   <h1>మీ ప్రపంచాన్ని<br>పంచుకోండి.</h1>
@@ -12,73 +55,115 @@
   {% endif %}
 </section>
 
-<section class="stories">
-  <h2>✨ స్టోరీస్</h2>
-  <div class="story-row">
-    <a class="story" href="{{ url_for('upload') }}">
-      <span class="story-circle">＋</span>
-      <span>మీ స్టోరీ</span>
-    </a>
-    <div class="story">
-      <span class="story-circle">🎬</span>
-      <span>వీడియోలు</span>
-    </div>
-    <div class="story">
-      <span class="story-circle">📸</span>
-      <span>ఫొటోలు</span>
-    </div>
-  </div>
-</section>
+<div class="home-layout">
+  <div class="home-main">
 
-<section class="feed">
-  <h2>🎬 మీ ఫీడ్</h2>
-
-  {% if posts %}
-    {% for p in posts %}
-      <article class="card">
-        <p>
-          <a href="{{ url_for('profile', username=p['username']) }}">
-            👤 {{ p['username'] }}
-          </a>
-        </p>
-
-        {% if p['kind'] == 'video' %}
-          <video controls playsinline preload="metadata">
-            <source src="{{ url_for('media', name=p['filename']) }}">
-          </video>
-        {% else %}
-          <img src="{{ url_for('media', name=p['filename']) }}"
-               alt="BIZBRIDGE పోస్ట్" loading="lazy">
-        {% endif %}
-
-        <p>{{ p['caption'] }}</p>
-
-        <div class="post-actions">
-          <span>❤️ {{ p['likes'] }}</span>
-          <span>💬 {{ p['comments'] }}</span>
-          <a href="{{ url_for('post', pid=p['id']) }}">పోస్ట్ చూడండి</a>
+    <section class="stories">
+      <h2>✨ స్టోరీస్</h2>
+      <div class="story-row">
+        <a class="story" href="{{ url_for('upload') }}">
+          <span class="story-circle">＋</span>
+          <span>మీ స్టోరీ</span>
+        </a>
+        <div class="story">
+          <span class="story-circle">🎬</span>
+          <span>వీడియోలు</span>
         </div>
+        <div class="story">
+          <span class="story-circle">📸</span>
+          <span>ఫొటోలు</span>
+        </div>
+      </div>
+    </section>
 
-        {% if me %}
-          <form method="post" action="{{ url_for('like', pid=p['id']) }}">
-            <button type="submit">
-              {% if p['liked'] %}❤️ Unlike{% else %}🤍 Like{% endif %}
-            </button>
-          </form>
-        {% endif %}
-      </article>
-    {% endfor %}
-  {% else %}
-    <article class="card empty-state">
-      <h3>🌟 మొదటి పోస్ట్ మీదే!</h3>
-      <p>మీ ఫొటో లేదా వీడియోను పంచుకొని BIZBRIDGEను ప్రారంభించండి.</p>
-      {% if me %}
-        <a class="button" href="{{ url_for('upload') }}">ఫొటో లేదా వీడియో పోస్ట్ చేయండి</a>
+    <section class="feed">
+      <h2>🎬 మీ ఫీడ్</h2>
+
+      {% if posts %}
+        {% for p in posts %}
+
+          {% if loop.index == 3 %}
+            <article class="ad-slot">
+              <span class="sponsored-label">SPONSORED</span>
+              <small>ప్రకటనల స్థలం</small>
+              <h3>మీ వ్యాపారాన్ని BIZBRIDGEలో ప్రమోట్ చేయండి</h3>
+              <p>మీ బ్రాండ్‌ను కొత్త ప్రేక్షకులకు పరిచయం చేయండి.</p>
+              <a href="#bb-ad-bot"
+                 onclick="openAdBot(); return false;">
+                ప్రకటనల ప్యాకేజీలు చూడండి →
+              </a>
+            </article>
+          {% endif %}
+
+          <article class="card">
+            <p>
+              <a href="{{ url_for('profile', username=p['username']) }}">
+                👤 {{ p['username'] }}
+              </a>
+            </p>
+
+            {% if p['kind'] == 'video' %}
+              <video controls playsinline preload="metadata">
+                <source src="{{ url_for('media', name=p['filename']) }}">
+              </video>
+            {% else %}
+              <img src="{{ url_for('media', name=p['filename']) }}"
+                   alt="BIZBRIDGE పోస్ట్" loading="lazy">
+            {% endif %}
+
+            <p>{{ p['caption'] }}</p>
+
+            <div class="post-actions">
+              <span>❤️ {{ p['likes'] }}</span>
+              <span>💬 {{ p['comments'] }}</span>
+              <a href="{{ url_for('post', pid=p['id']) }}">పోస్ట్ చూడండి</a>
+            </div>
+
+            {% if me %}
+              <form method="post"
+                    action="{{ url_for('like', pid=p['id']) }}">
+                <button type="submit">
+                  {% if p['liked'] %}❤️ Unlike{% else %}🤍 Like{% endif %}
+                </button>
+              </form>
+            {% endif %}
+          </article>
+        {% endfor %}
       {% else %}
-        <a class="button" href="{{ url_for('register') }}">ఖాతా సృష్టించండి</a>
+        <article class="card empty-state">
+          <h3>🌟 మొదటి పోస్ట్ మీదే!</h3>
+          <p>మీ ఫొటో లేదా వీడియోను పంచుకొని BIZBRIDGEను ప్రారంభించండి.</p>
+          {% if me %}
+            <a class="button" href="{{ url_for('upload') }}">ఫొటో లేదా వీడియో పోస్ట్ చేయండి</a>
+          {% else %}
+            <a class="button" href="{{ url_for('register') }}">ఖాతా సృష్టించండి</a>
+          {% endif %}
+        </article>
       {% endif %}
-    </article>
-  {% endif %}
-</section>
+    </section>
+  </div>
+
+  <aside class="home-sidebar">
+    <section class="ad-slot">
+      <small>ADVERTISEMENT · SIDE PANEL</small>
+      <h3>📢 మీ బ్రాండ్‌కు స్థలం</h3>
+      <p>మీ వ్యాపారం లేదా సేవను BIZBRIDGEలో ప్రమోట్ చేయండి.</p>
+      <a href="#bb-ad-bot"
+         onclick="openAdBot(); return false;">
+        Ad Assistantను సంప్రదించండి →
+      </a>
+    </section>
+
+    <section class="ad-slot">
+      <small>BUSINESS PROMOTION</small>
+      <h3>మీ ప్రకటనను ప్లాన్ చేయండి</h3>
+      <p>Starter, Growth, Video Promo ప్యాకేజీల వివరాలు తెలుసుకోండి.</p>
+      <a href="#bb-ad-bot"
+         onclick="openAdBot(); return false;">
+        ప్యాకేజీలు చూడండి →
+      </a>
+    </section>
+  </aside>
+</div>
 
 {% endblock %}
