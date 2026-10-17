@@ -1,123 +1,4 @@
-/* BIZBRIDGE mobile form layout fix */
-form {
-  display: block;
-  max-width: 100%;
-}
-
-form label {
-  display: block;
-  width: 100%;
-  margin: 14px 0 6px;
-}
-
-form input,
-form textarea,
-form select {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  margin: 0 0 14px;
-  padding: 14px;
-  box-sizing: border-box;
-}
-
-form button {
-  max-width: 100%;
-}
-
-.card,
-.hero,
-.feed {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-img,
-video {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  border-radius: 14px;
-}
-
-@media (max-width: 600px) {
-  main {
-    width: 100%;
-    margin: 12px auto;
-    padding: 0 14px;
-  }
-
-  header {
-    padding: 14px;
-  }
-
-  nav {
-    gap: 6px;
-  }
-
-  nav a {
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 32px;
-  }
-
-  .card {
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-}
-/* BIZBRIDGE mobile form fix */
-form {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-form label {
-  display: block;
-  margin: 12px 0 6px;
-}
-
-input,
-textarea,
-select {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-button {
-  max-width: 100%;
-  white-space: normal;
-}
-
-@media (max-width: 600px) {
-  main {
-    width: 100%;
-    margin: 0 auto;
-    padding: 16px;
-  }
-
-  form,
-  .card {
-    padding: 16px;
-  }
-
-  input,
-  textarea,
-  select {
-    font-size: 16px;
-  }
-}
-/* BIZBRIDGE - Instagram + YouTube inspired design */
-
+/* BIZBRIDGE Responsive Mobile Design */
 :root {
   --purple: #7047eb;
   --purple-dark: #5230c7;
@@ -128,12 +9,27 @@ button {
   --border: #e9e6f3;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
+  font-family: Arial, sans-serif;
+  line-height: 1.55;
 }
 
 header {
+  padding: 14px 18px;
   background: var(--white);
   box-shadow: 0 2px 12px rgba(40, 25, 90, 0.05);
 }
@@ -142,21 +38,45 @@ header {
   color: var(--purple);
   font-size: 25px;
   font-weight: 800;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--white);
+}
+
+nav a {
+  padding: 8px;
+  color: var(--purple);
+  font-weight: 700;
+  text-decoration: none;
 }
 
 main {
-  width: min(100% - 28px, 760px);
-  margin: 24px auto;
-  padding: 0;
+  width: calc(100% - 28px);
+  max-width: 900px;
+  min-width: 0;
+  margin: 22px auto;
+}
+
+.hero,
+.card,
+.stories {
+  min-width: 0;
+  padding: 18px;
+  margin-bottom: 20px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow-wrap: anywhere;
 }
 
 .hero {
-  padding: 28px 22px;
-  margin-bottom: 24px;
-  background: linear-gradient(135deg, #ffffff, #f0ebff);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  box-shadow: 0 8px 28px rgba(60, 40, 120, 0.06);
+  background: linear-gradient(135deg, #fff, #f0ebff);
 }
 
 .hero h1 {
@@ -169,27 +89,67 @@ button {
   display: inline-block;
   max-width: 100%;
   padding: 13px 20px;
-  background: var(--purple);
-  color: #ffffff;
   border: 0;
   border-radius: 14px;
+  background: var(--purple);
+  color: white;
+  font-size: 16px;
   font-weight: 700;
+  text-align: center;
   text-decoration: none;
+  overflow-wrap: anywhere;
   cursor: pointer;
 }
 
 .button:hover,
 button:hover {
   background: var(--purple-dark);
-  color: #ffffff;
 }
 
-.stories {
-  margin: 24px 0;
-  padding: 18px;
-  background: var(--white);
+form {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+form label {
+  display: block;
+  width: 100%;
+  margin: 12px 0 6px;
+}
+
+form input,
+form textarea,
+form select,
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 0 14px;
+  padding: 13px 14px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 12px;
+  background: white;
+  color: var(--text);
+  font-size: 16px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  display: inline-block;
+  width: auto;
+}
+
+input[type="file"] {
+  padding: 10px;
+}
+
+form button {
+  margin-top: 4px;
 }
 
 .story-row {
@@ -205,9 +165,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  color: var(--text);
   text-align: center;
-  font-size: 13px;
 }
 
 .story-circle {
@@ -220,28 +178,21 @@ button:hover {
   background: #f0ebff;
   color: var(--purple);
   font-size: 24px;
-  font-weight: 800;
 }
 
-.card {
-  margin: 18px 0;
-  padding: 18px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  box-shadow: 0 6px 22px rgba(40, 25, 90, 0.05);
-  overflow-wrap: anywhere;
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
 }
 
 .card img,
 .card video {
-  display: block;
   width: 100%;
-  max-width: 100%;
-  height: auto;
   max-height: 520px;
   object-fit: contain;
-  border-radius: 14px;
   background: #171522;
 }
 
@@ -253,37 +204,20 @@ button:hover {
   margin-top: 14px;
 }
 
-input,
-textarea,
-select {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 13px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #ffffff;
-  font: inherit;
-}
-
 footer {
   padding: 24px 14px;
-  text-align: center;
   color: var(--muted);
+  text-align: center;
 }
 
 @media (max-width: 600px) {
-  main {
-    width: auto;
-    margin: 16px 12px;
-  }
-
   header {
-    padding: 12px;
+    padding: 12px 14px;
   }
 
   nav {
-    gap: 6px;
+    gap: 4px;
+    padding: 10px;
   }
 
   nav a {
@@ -291,17 +225,30 @@ footer {
     font-size: 14px;
   }
 
-  .hero {
-    padding: 22px 16px;
-    border-radius: 20px;
+  main {
+    width: auto;
+    margin: 16px 12px;
   }
 
+  .hero,
+  .card,
   .stories {
     padding: 14px;
   }
 
-  .card {
-    padding: 14px;
-    margin: 14px 0;
+  form {
+    padding: 0;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  button,
+  .button {
+    max-width: 100%;
+    white-space: normal;
   }
 }
